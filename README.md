@@ -117,10 +117,8 @@ npm start
 ## Credits
 
 - Assessment and starter code by VectorShift
-- Implementation and documentation by [Your Name]
+- Implementation and documentation by Devashish
 
 ---
-
-## Contact
 
 For questions, reach out to recruiting@vectorshift.ai

@@ -131,3 +131,41 @@ Absolutely! Here's a comprehensive guide to help you explain your implementation
 ---
 
 If you want, I can add even more detailed comments to the frontend code or help you prepare for specific technical or behavioral questions. Good luck—you're well prepared!
+
+
+1. Latest Frontend Changes: Clean Data Display
+What changed?
+Previously, when you loaded integration data (e.g., from HubSpot), the frontend displayed the raw JSON in a disabled multiline text field. This was functional but not user-friendly.
+Now, each item is displayed as a visually appealing card using Material-UI components. Each card shows key fields (type, name, ID, creation time, last modified time) in a clear, readable format.
+How is it implemented?
+A new ItemCard component was created. It takes an item and renders it inside a Material-UI Card, with styled typography for each field.
+The main DataForm component now maps over the loaded data array and renders an ItemCard for each item.
+The layout uses a Stack for spacing, and the cards have a modern, minimal look.
+If there are no items, a friendly message is shown instead of an empty field.
+2. How Data Fetching Was Fixed
+What was the bug?
+The backend was fetching data from HubSpot and trying to parse date fields (like creation_time and last_modified_time) as Unix timestamps.
+However, HubSpot returns these as ISO 8601 date strings (e.g., "2024-06-01T12:34:56Z"), not as numbers.
+The backend’s attempt to parse these as numbers caused errors, resulting in empty lists being returned to the frontend.
+How was it fixed?
+The backend was updated to store and return the date fields as strings, without trying to convert them to Unix timestamps.
+This allowed the backend to successfully process and return the data from HubSpot, and the frontend could then display it.
+3. How the Clean Data Display Was Implemented
+Step-by-step:
+Backend returns a list of items (each with fields like type, name, id, creation_time, last_modified_time).
+Frontend receives this list and stores it in state (loadedData).
+Instead of showing raw JSON, the frontend now:
+Maps over the array of items.
+For each item, renders an ItemCard with nicely formatted fields.
+Uses Material-UI for a modern, consistent look.
+Handles empty states gracefully.
+Benefits:
+The UI is much more readable and professional.
+Users can quickly scan and understand the data.
+The code is modular and easy to extend (e.g., to add more fields or actions).
+Summary Table:
+Before (Old UI)	After (New UI)
+Raw JSON in text field	Modern cards for each item
+Hard to read/scan	Key fields clearly displayed
+No visual hierarchy	Clean, spaced, minimal layout
+No error/empty handling	Friendly empty state message
