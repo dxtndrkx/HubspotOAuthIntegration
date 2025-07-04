@@ -165,8 +165,8 @@ def create_integration_item_metadata_object(
         type=item_type,
         parent_id=parent_id,
         parent_path_or_name=parent_name,
-        creation_time=datetime.datetime.fromtimestamp(response_json.get('createdAt', 0) / 1000) if response_json.get('createdAt') else None,
-        last_modified_time=datetime.datetime.fromtimestamp(response_json.get('updatedAt', 0) / 1000) if response_json.get('updatedAt') else None,
+        creation_time=response_json.get('createdAt'),  # store as string
+        last_modified_time=response_json.get('updatedAt'),  # store as string
     )
     return integration_item_metadata
 
@@ -194,7 +194,7 @@ async def get_items_hubspot(credentials) -> list[dict]:
             headers={'Authorization': f'Bearer {access_token}'},
             params={'limit': 100}
         )
-        
+        print('Contacts API response:', contacts_response.text)  # Debug print
         if contacts_response.status_code == 200:
             contacts_data = contacts_response.json()
             for contact in contacts_data.get('results', []):
@@ -211,7 +211,7 @@ async def get_items_hubspot(credentials) -> list[dict]:
             headers={'Authorization': f'Bearer {access_token}'},
             params={'limit': 100}
         )
-        
+        print('Companies API response:', companies_response.text)  # Debug print
         if companies_response.status_code == 200:
             companies_data = companies_response.json()
             for company in companies_data.get('results', []):
@@ -228,7 +228,7 @@ async def get_items_hubspot(credentials) -> list[dict]:
             headers={'Authorization': f'Bearer {access_token}'},
             params={'limit': 100}
         )
-        
+        print('Deals API response:', deals_response.text)  # Debug print
         if deals_response.status_code == 200:
             deals_data = deals_response.json()
             for deal in deals_data.get('results', []):
